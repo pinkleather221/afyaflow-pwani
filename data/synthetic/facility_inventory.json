@@ -1,0 +1,65 @@
+[
+    {
+        "facility": "Old Town Health Centre",
+        "level": "PHC",
+        "county": "Mombasa",
+        "item": "ORS sachets",
+        "balance_units": 12,
+        "average_daily_use": 6,
+        "distance_km": 0
+    },
+    {
+        "facility": "Tudor Community Health Centre",
+        "level": "CHC",
+        "county": "Mombasa",
+        "item": "ORS sachets",
+        "balance_units": 180,
+        "average_daily_use": 9,
+        "distance_km": 4.2
+    },
+    {
+        "facility": "Kisauni Primary Health Centre",
+        "level": "PHC",
+        "county": "Mombasa",
+        "item": "ORS sachets",
+        "balance_units": 95,
+        "average_daily_use": 8,
+        "distance_km": 7.8
+    },
+    {
+        "facility": "Likoni Community Health Centre",
+        "level": "CHC",
+        "county": "Mombasa",
+        "item": "Malaria RDT kits",
+        "balance_units": 28,
+        "average_daily_use": 12,
+        "distance_km": 6.5
+    },
+    {
+        "facility": "Changamwe Primary Health Centre",
+        "level": "PHC",
+        "county": "Mombasa",
+        "item": "Malaria RDT kits",
+        "balance_units": 260,
+        "average_daily_use": 11,
+        "distance_km": 8.1
+    },
+    {
+        "facility": "Mtwapa Health Centre",
+        "level": "PHC",
+        "county": "Kilifi",
+        "item": "Amoxicillin 250mg capsules",
+        "balance_units": 36,
+        "average_daily_use": 18,
+        "distance_km": 14.4
+    },
+    {
+        "facility": "Kilifi County Referral Outpatient Store",
+        "level": "CHC",
+        "county": "Kilifi",
+        "item": "Amoxicillin 250mg capsules",
+        "balance_units": 520,
+        "average_daily_use": 22,
+        "distance_km": 52.3
+    }
+]

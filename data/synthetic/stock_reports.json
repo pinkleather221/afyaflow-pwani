@@ -1,0 +1,50 @@
+[
+    {
+        "id": "golden-ors-low-stock",
+        "source_type": "text",
+        "source_language": "sw-en",
+        "raw_input": "Old Town Health Centre tuko na ORS sachets 12 tu, matumizi ni around 6 kwa siku, report ya 31 July 2026.",
+        "expected": {
+            "facility": "Old Town Health Centre",
+            "item": "ORS sachets",
+            "balance_units": 12,
+            "average_daily_use": 6,
+            "expiry_date": "2026-10-31",
+            "report_date": "2026-07-31",
+            "patient_footfall_today": 18,
+            "risk_level": "red"
+        }
+    },
+    {
+        "id": "malaria-rdt-low-stock",
+        "source_type": "text",
+        "source_language": "en",
+        "raw_input": "Likoni Community Health Centre has 28 malaria RDT kits left and uses about 12 per day. Please flag this report for July 31 2026.",
+        "expected": {
+            "facility": "Likoni Community Health Centre",
+            "item": "Malaria RDT kits",
+            "balance_units": 28,
+            "average_daily_use": 12,
+            "expiry_date": "2026-09-30",
+            "report_date": "2026-07-31",
+            "patient_footfall_today": 30,
+            "risk_level": "red"
+        }
+    },
+    {
+        "id": "amoxicillin-amber",
+        "source_type": "text",
+        "source_language": "en",
+        "raw_input": "Mtwapa Health Centre reports 82 amoxicillin 250mg capsules remaining with average consumption of 14 per day.",
+        "expected": {
+            "facility": "Mtwapa Health Centre",
+            "item": "Amoxicillin 250mg capsules",
+            "balance_units": 82,
+            "average_daily_use": 14,
+            "expiry_date": "2026-12-31",
+            "report_date": "2026-07-31",
+            "patient_footfall_today": 20,
+            "risk_level": "amber"
+        }
+    }
+]
