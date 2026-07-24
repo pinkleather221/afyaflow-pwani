@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+kaggle.json
+
+# Notebook and generated outputs
+.ipynb_checkpoints/
+outputs/
+artifacts/
+reports/generated/
+
+# Model weights and caches
+models/
+*.safetensors
+*.gguf
+*.bin
+.cache/
+huggingface/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Build outputs
+build/
+dist/
+*.egg-info/

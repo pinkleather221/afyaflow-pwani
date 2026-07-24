@@ -1,0 +1,67 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "afyaflow-pwani"
+version = "0.1.0"
+description = "Offline-first Gemma 4 assistant for early medicine stock-out detection and resource redistribution."
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "Nelly Mogere" }
+]
+keywords = ["gemma", "health-supply-chain", "responsible-ai", "kaggle"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "pydantic>=2.10,<3",
+]
+
+[project.optional-dependencies]
+app = [
+  "streamlit>=1.41,<2",
+]
+gemma = [
+  "accelerate>=1.2,<2",
+  "pillow>=11,<13",
+  "sentencepiece>=0.2,<1",
+  "torch>=2.5,<3",
+  "transformers>=4.47,<6",
+]
+dev = [
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+  "ruff>=0.9,<1",
+]
+
+[project.urls]
+Repository = "https://github.com/pinkleather221/afyaflow-pwani"
+Competition = "https://www.kaggle.com/competitions/build-with-gemma-gdg-pwani"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/afyaflow"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers --strict-config"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests", "app"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
