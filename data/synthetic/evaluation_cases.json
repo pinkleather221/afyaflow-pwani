@@ -1,0 +1,324 @@
+[
+  {
+    "id": "eval-001",
+    "category": "low-stock-swahili",
+    "source_type": "text",
+    "source_language": "sw-en",
+    "raw_input": "Old Town Health Centre tuko na ORS sachets 12 tu, matumizi ni around 6 kwa siku, report ya 31 July 2026.",
+    "expected": {
+      "facility": "Old Town Health Centre",
+      "item": "ORS sachets",
+      "balance_units": 12,
+      "average_daily_use": 6,
+      "report_date": "2026-07-31",
+      "risk_level": "red",
+      "source_language": "sw-en"
+    },
+    "notes": "Golden scenario. Mixed Swahili-English. Critical stock, immediate action needed."
+  },
+  {
+    "id": "eval-002",
+    "category": "low-stock-english",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Likoni Community Health Centre has 28 malaria RDT kits left and uses about 12 per day. Please flag this report for July 31 2026.",
+    "expected": {
+      "facility": "Likoni Community Health Centre",
+      "item": "Malaria RDT kits",
+      "balance_units": 28,
+      "average_daily_use": 12,
+      "report_date": "2026-07-31",
+      "risk_level": "red",
+      "source_language": "en"
+    },
+    "notes": "Red risk. English only. Should trigger transfer recommendation from Changamwe PHC."
+  },
+  {
+    "id": "eval-003",
+    "category": "amber-stock-english",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Mtwapa Health Centre reports 82 amoxicillin 250mg capsules remaining with average consumption of 14 per day.",
+    "expected": {
+      "facility": "Mtwapa Health Centre",
+      "item": "Amoxicillin 250mg capsules",
+      "balance_units": 82,
+      "average_daily_use": 14,
+      "report_date": null,
+      "risk_level": "amber",
+      "source_language": "en"
+    },
+    "notes": "Amber risk (5.86 days). No date provided in text."
+  },
+  {
+    "id": "eval-004",
+    "category": "green-stock-english",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Tudor Community Health Centre: ORS sachets stock count is 180 units. We use approximately 9 per day. Report date 2026-07-31.",
+    "expected": {
+      "facility": "Tudor Community Health Centre",
+      "item": "ORS sachets",
+      "balance_units": 180,
+      "average_daily_use": 9,
+      "report_date": "2026-07-31",
+      "risk_level": "green",
+      "source_language": "en"
+    },
+    "notes": "Green risk (20 days). Should not trigger any alert."
+  },
+  {
+    "id": "eval-005",
+    "category": "footfall-demand-spike",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Kisauni Primary Health Centre ORS sachets: balance 30 units, normal daily use 6, today footfall 80 patients.",
+    "expected": {
+      "facility": "Kisauni Primary Health Centre",
+      "item": "ORS sachets",
+      "balance_units": 30,
+      "average_daily_use": 6,
+      "patient_footfall_today": 80,
+      "risk_level": "amber",
+      "source_language": "en"
+    },
+    "notes": "Footfall 80 > 2x daily use 6. Demand adjusted to 8 units/day. Days of stock = 3.75 → amber."
+  },
+  {
+    "id": "eval-006",
+    "category": "zero-stock-red",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Changamwe Primary Health Centre malaria RDT kits: 0 units remaining. Daily use is 11. Report 2026-07-31.",
+    "expected": {
+      "facility": "Changamwe Primary Health Centre",
+      "item": "Malaria RDT kits",
+      "balance_units": 0,
+      "average_daily_use": 11,
+      "report_date": "2026-07-31",
+      "risk_level": "red",
+      "source_language": "en"
+    },
+    "notes": "Complete stock-out. Zero units. Must classify as red immediately."
+  },
+  {
+    "id": "eval-007",
+    "category": "swahili-only",
+    "source_type": "text",
+    "source_language": "sw",
+    "raw_input": "Likoni Community Health Centre ina ORS sachets 50, matumizi ya kila siku ni 8. Tarehe ya ripoti ni 2026-07-31.",
+    "expected": {
+      "facility": "Likoni Community Health Centre",
+      "item": "ORS sachets",
+      "balance_units": 50,
+      "average_daily_use": 8,
+      "report_date": "2026-07-31",
+      "risk_level": "amber",
+      "source_language": "sw"
+    },
+    "notes": "Swahili-only input. Days of stock = 6.25 → amber."
+  },
+  {
+    "id": "eval-008",
+    "category": "mixed-language-complex",
+    "source_type": "text",
+    "source_language": "sw-en",
+    "raw_input": "Mtwapa Health Centre tuna amoxicillin 250mg capsules 110 left. We use around 14 kwa siku. Date: July 31 2026.",
+    "expected": {
+      "facility": "Mtwapa Health Centre",
+      "item": "Amoxicillin 250mg capsules",
+      "balance_units": 110,
+      "average_daily_use": 14,
+      "report_date": "2026-07-31",
+      "risk_level": "green",
+      "source_language": "sw-en"
+    },
+    "notes": "Mixed Swahili-English. 7.86 days → green. Borderline near 7-day threshold."
+  },
+  {
+    "id": "eval-009",
+    "category": "exact-boundary-amber-red",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Tudor Community Health Centre: malaria RDT kits balance 21, average daily use 7. Report date 2026-07-31.",
+    "expected": {
+      "facility": "Tudor Community Health Centre",
+      "item": "Malaria RDT kits",
+      "balance_units": 21,
+      "average_daily_use": 7,
+      "report_date": "2026-07-31",
+      "risk_level": "amber",
+      "source_language": "en"
+    },
+    "notes": "Exactly 3 days of stock → red boundary (3.0 < 3 is false, so green→amber). Tests boundary conditions."
+  },
+  {
+    "id": "eval-010",
+    "category": "exact-boundary-green-amber",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Kisauni Primary Health Centre has 49 amoxicillin 250mg capsules and uses 7 per day. Report: 2026-07-31.",
+    "expected": {
+      "facility": "Kisauni Primary Health Centre",
+      "item": "Amoxicillin 250mg capsules",
+      "balance_units": 49,
+      "average_daily_use": 7,
+      "report_date": "2026-07-31",
+      "risk_level": "green",
+      "source_language": "en"
+    },
+    "notes": "Exactly 7.0 days. Risk engine uses < 7 (not <=), so 7.0 is green. Boundary test."
+  },
+  {
+    "id": "eval-011",
+    "category": "incomplete-missing-balance",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Old Town Health Centre is running low on ORS. Please send help.",
+    "expected": {
+      "extraction_should_fail": true,
+      "failure_reason": "Missing balance_units and average_daily_use"
+    },
+    "notes": "No numeric quantities. Extraction should fail or return null fields."
+  },
+  {
+    "id": "eval-012",
+    "category": "incomplete-missing-facility",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "We have 45 malaria RDT kits and use 10 per day. Running low!",
+    "expected": {
+      "extraction_should_fail": true,
+      "failure_reason": "Missing facility name"
+    },
+    "notes": "No facility name. Extraction should fail validation."
+  },
+  {
+    "id": "eval-013",
+    "category": "incomplete-missing-item",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Changamwe Primary Health Centre has 35 units remaining. Daily use is 7.",
+    "expected": {
+      "extraction_should_fail": true,
+      "failure_reason": "Missing item name"
+    },
+    "notes": "No item specified. Falls outside approved item patterns."
+  },
+  {
+    "id": "eval-014",
+    "category": "invalid-negative-balance",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Mtwapa Health Centre: amoxicillin 250mg capsules, balance -5, daily use 10.",
+    "expected": {
+      "extraction_should_fail": true,
+      "failure_reason": "balance_units cannot be negative"
+    },
+    "notes": "Negative balance. StockReport schema should reject this."
+  },
+  {
+    "id": "eval-015",
+    "category": "high-confidence-transfer",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Old Town Health Centre: ORS sachets stock is 10 units. We use 5 per day on average. Report 2026-07-31.",
+    "expected": {
+      "facility": "Old Town Health Centre",
+      "item": "ORS sachets",
+      "balance_units": 10,
+      "average_daily_use": 5,
+      "report_date": "2026-07-31",
+      "risk_level": "red",
+      "transfer_recommended": true,
+      "source_language": "en"
+    },
+    "notes": "2 days of stock → red. Transfer from Tudor CHC (180 units, 4.2 km) should rank first."
+  },
+  {
+    "id": "eval-016",
+    "category": "swahili-near-deadline",
+    "source_type": "text",
+    "source_language": "sw-en",
+    "raw_input": "Ripoti ya Likoni Community Health Centre: ORS sachets zimebaki 40, matumizi ni 8 kwa siku. Tarehe 2026-07-31.",
+    "expected": {
+      "facility": "Likoni Community Health Centre",
+      "item": "ORS sachets",
+      "balance_units": 40,
+      "average_daily_use": 8,
+      "report_date": "2026-07-31",
+      "risk_level": "amber",
+      "source_language": "sw-en"
+    },
+    "notes": "Mixed Swahili-English near-deadline date. 5 days → amber."
+  },
+  {
+    "id": "eval-017",
+    "category": "large-surplus-green",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Kilifi County Referral Outpatient Store: amoxicillin 250mg capsules stock is 520 units with 22 per day use. Date 2026-07-31.",
+    "expected": {
+      "facility": "Kilifi County Referral Outpatient Store",
+      "item": "Amoxicillin 250mg capsules",
+      "balance_units": 520,
+      "average_daily_use": 22,
+      "report_date": "2026-07-31",
+      "risk_level": "green",
+      "source_language": "en"
+    },
+    "notes": "23.6 days → green. Should appear as a valid transfer source for amber/red facilities."
+  },
+  {
+    "id": "eval-018",
+    "category": "high-footfall-no-adjustment",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Tudor Community Health Centre ORS sachets: 150 units, normal daily use 10, today footfall 15 patients.",
+    "expected": {
+      "facility": "Tudor Community Health Centre",
+      "item": "ORS sachets",
+      "balance_units": 150,
+      "average_daily_use": 10,
+      "patient_footfall_today": 15,
+      "risk_level": "green",
+      "source_language": "en"
+    },
+    "notes": "Footfall 15 is not > 2x daily use 10, so no demand adjustment. 15 days → green."
+  },
+  {
+    "id": "eval-019",
+    "category": "audio-fallback-placeholder",
+    "source_type": "audio",
+    "source_language": "sw",
+    "raw_input": "Changamwe Primary Health Centre ina malaria RDT kits 55, matumizi 11 kwa siku. Tarehe 2026-07-31.",
+    "expected": {
+      "facility": "Changamwe Primary Health Centre",
+      "item": "Malaria RDT kits",
+      "balance_units": 55,
+      "average_daily_use": 11,
+      "report_date": "2026-07-31",
+      "risk_level": "amber",
+      "source_type": "audio",
+      "source_language": "sw"
+    },
+    "notes": "Audio source type. Swahili. 5.0 days → amber. Tests source_type field propagation."
+  },
+  {
+    "id": "eval-020",
+    "category": "edge-one-unit-remaining",
+    "source_type": "text",
+    "source_language": "en",
+    "raw_input": "Kisauni Primary Health Centre: only 1 amoxicillin 250mg capsule left. Daily use is 4. Report 2026-07-31.",
+    "expected": {
+      "facility": "Kisauni Primary Health Centre",
+      "item": "Amoxicillin 250mg capsules",
+      "balance_units": 1,
+      "average_daily_use": 4,
+      "report_date": "2026-07-31",
+      "risk_level": "red",
+      "source_language": "en"
+    },
+    "notes": "Extreme edge case: 0.25 days of stock. Must fire critical red alert immediately."
+  }
+]
