@@ -53,8 +53,8 @@ def main() -> None:
     col_input, col_report = st.columns([1, 1])
     with col_input:
         st.subheader("1. Facility report")
-        raw_input = st.text_area("Paste or edit the stock report", value=default_input, height=180)
         source_type = st.selectbox("Source type", ["text", "image", "audio"], index=0)
+        raw_input = _collect_source_input(st, source_type, default_input)
         run_button = st.button("Generate verified stock alert", type="primary")
 
     if not run_button:
@@ -110,6 +110,60 @@ def main() -> None:
     with st.expander("Audit event preview"):
         st.code(json.dumps(_serialize_result(result), indent=2, default=str), language="json")
         st.caption(f"Audit events are written locally to {AUDIT_PATH.relative_to(ROOT)}.")
+
+
+def _collect_source_input(st: Any, source_type: str, default_input: str) -> str:
+    """Collect text, image, or audio input from the Streamlit user."""
+
+    if source_type == "text":
+        return st.text_area("Paste or edit the stock report", value=default_input, height=180)
+
+    if source_type == "image":
+        uploaded_image = st.file_uploader(
+            "Upload a photographed stock card or facility report image",
+            type=["png", "jpg", "jpeg", "webp"],
+            accept_multiple_files=False,
+        )
+        visible_text = st.text_area(
+            "Type what is visible on the image, or paste OCR/Gemma vision text",
+            value=default_input,
+            height=140,
+            help="For the public demo, the uploaded image proves device input while this text gives the extractor readable stock-card content. A real multimodal Gemma runtime can replace this hint with direct image understanding.",
+        )
+        if uploaded_image is None:
+            st.info("Upload an image before generating the stock alert. The synthetic text below remains available for demo fallback.")
+            return default_input
+        image_bytes = uploaded_image.getvalue()
+        st.image(uploaded_image, caption=uploaded_image.name, use_container_width=True)
+        return (
+            f"Uploaded image file: {uploaded_image.name}\n"
+            f"Image MIME type: {uploaded_image.type}\n"
+            f"Image size bytes: {len(image_bytes)}\n"
+            f"Visible stock-report text: {visible_text}"
+        )
+
+    uploaded_audio = st.file_uploader(
+        "Upload a short voice stock report",
+        type=["wav", "mp3", "m4a", "ogg", "aac", "flac"],
+        accept_multiple_files=False,
+    )
+    transcript_hint = st.text_area(
+        "Type the spoken report transcript, or paste speech-to-text output",
+        value=default_input,
+        height=140,
+        help="For the public demo, the uploaded audio proves device input while this transcript gives the extractor readable spoken stock-report content. A real audio Gemma runtime can replace this hint with direct audio understanding.",
+    )
+    if uploaded_audio is None:
+        st.info("Upload an audio file before generating the stock alert. The synthetic text below remains available for demo fallback.")
+        return default_input
+    audio_bytes = uploaded_audio.getvalue()
+    st.audio(uploaded_audio)
+    return (
+        f"Uploaded audio file: {uploaded_audio.name}\n"
+        f"Audio MIME type: {uploaded_audio.type}\n"
+        f"Audio size bytes: {len(audio_bytes)}\n"
+        f"Spoken stock-report transcript: {transcript_hint}"
+    )
 
 
 def _editable_report(st: Any, report: dict[str, Any]) -> dict[str, Any]:

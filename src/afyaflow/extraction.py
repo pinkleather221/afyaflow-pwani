@@ -82,10 +82,16 @@ def extract_with_rules(raw_input: str, source_type: SourceType = "text") -> Stoc
     path and lets tests run without downloading model weights.
     """
 
-    lower = raw_input.lower()
+    content_to_parse = raw_input
+    if "Visible stock-report text:" in content_to_parse:
+        content_to_parse = content_to_parse.split("Visible stock-report text:")[-1]
+    elif "Spoken stock-report transcript:" in content_to_parse:
+        content_to_parse = content_to_parse.split("Spoken stock-report transcript:")[-1]
+
+    lower = content_to_parse.lower()
     facility = next((name for name in FACILITY_PATTERNS if name.lower() in lower), "")
-    item = next((name for name, pattern in ITEM_PATTERNS.items() if pattern.search(raw_input)), "")
-    numbers = [int(match) for match in re.findall(r"\b\d+\b", raw_input)]
+    item = next((name for name, pattern in ITEM_PATTERNS.items() if pattern.search(content_to_parse)), "")
+    numbers = [int(match) for match in re.findall(r"\b\d+\b", content_to_parse)]
     balance = numbers[0] if numbers else None
     daily_use = numbers[1] if len(numbers) > 1 else None
 

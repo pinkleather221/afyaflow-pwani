@@ -1,10 +1,12 @@
 # Notebooks
 
-The judged Kaggle notebook will be added as `afyaflow_gemma_demo.ipynb` after the domain engine and Gemma integration are validated.
+Judged Kaggle notebook: `afyaflow_gemma_demo.ipynb`
 
-Notebook requirements:
+## Kaggle run checklist
 
-- Restart and run top-to-bottom on Kaggle.
-- Use only synthetic public data.
-- Explain why Gemma 4 is required.
-- Show extraction, validation, risk calculation, tool calling, and evaluation.
+1. Accelerator: GPU.
+2. Add the Keras Gemma 4 model Input (`gemma4` V2 preset files).
+3. Clone or attach this repository so `src/afyaflow` is available.
+4. Run all cells top-to-bottom.
+
+The notebook loads the attached local preset with `Gemma4CausalLM.from_preset`, extracts structured stock reports through `GemmaClient`, then runs deterministic risk, approved tools, and bilingual handoff.

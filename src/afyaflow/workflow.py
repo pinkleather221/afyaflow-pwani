@@ -8,7 +8,7 @@ from typing import Any
 
 from .audit import append_audit_event
 from .data_loader import load_facility_inventory
-from .gemma_client import GemmaClient
+from .gemma_client import GemmaClient, ModelRuntime
 from .schemas import SourceType, StockReport, StockRisk
 from .tool_registry import ToolCall, execute_tool_call
 
@@ -18,13 +18,14 @@ def run_report_workflow(
     *,
     source_type: SourceType = "text",
     model_name: str = "google/gemma-4-E2B-it",
+    runtime: ModelRuntime | None = None,
     inventory_path: str | Path = "data/synthetic/facility_inventory.json",
     audit_path: str | Path | None = None,
     handoff_language: str = "en",
 ) -> dict[str, Any]:
     """Run the complete extraction, risk, transfer, handoff, and audit workflow."""
 
-    client = GemmaClient(model_name)
+    client = GemmaClient(model_name, runtime=runtime)
     report = client.extract_stock_report(raw_input, source_type=source_type)
     inventory = load_facility_inventory(inventory_path)
     risk = execute_tool_call(ToolCall(name="calculate_stock_risk", arguments={}), report, inventory)

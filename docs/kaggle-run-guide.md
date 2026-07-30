@@ -96,31 +96,22 @@ notebooks/afyaflow_gemma_demo.ipynb
 
 ## 5. How to connect real Gemma 4 on Kaggle
 
-The repository currently uses deterministic fallback extraction locally. This is intentional so tests run without model weights.
+The repository uses deterministic fallback extraction locally so tests run without model weights.
 
-On Kaggle GPU, replace or extend the runtime behind `GemmaClient` using the existing `ModelRuntime` protocol:
+On Kaggle GPU, the notebook `notebooks/afyaflow_gemma_demo.ipynb` already wires a live KerasHub runtime:
 
-```python
-class KaggleGemmaRuntime:
-    def __init__(self, model_name="google/gemma-4-E2B-it"):
-        # Load tokenizer/model here using the Kaggle-supported Gemma path.
-        self.model_name = model_name
+1. Add the **Keras Gemma 4** model as a notebook Input (for example `gemma4` / V2 with `config.json`, `tokenizer.json`, `model.weights.json`, and `model_*.weights.h5`).
+2. Enable **GPU**.
+3. Clone or attach the AfyaFlow repository so `src/afyaflow` is available.
+4. Run all cells top-to-bottom.
 
-    def generate_json(self, prompt: str) -> dict:
-        # Run Gemma inference.
-        # Parse the model output into a JSON-compatible dict.
-        # Return fields required by StockReport.
-        raise NotImplementedError
-```
-
-Then use:
+The notebook auto-discovers the preset under `/kaggle/input`, loads it with:
 
 ```python
-from afyaflow.gemma_client import GemmaClient
-
-client = GemmaClient("google/gemma-4-E2B-it", runtime=KaggleGemmaRuntime())
-report = client.extract_stock_report(raw_input)
+gemma_lm = keras_hub.models.Gemma4CausalLM.from_preset(str(GEMMA_PRESET), dtype="bfloat16")
 ```
+
+and passes a `KaggleGemmaRuntime` into `GemmaClient` / `run_report_workflow(..., runtime=runtime)`.
 
 Important: keep these safeguards unchanged:
 
