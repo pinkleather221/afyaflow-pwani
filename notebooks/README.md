@@ -2,11 +2,20 @@
 
 Judged Kaggle notebook: `afyaflow_gemma_demo.ipynb`
 
-## Kaggle run checklist
+## How this notebook is meant to run on Kaggle
 
-1. Accelerator: GPU.
-2. Add the Keras Gemma 4 model Input (`gemma4` V2 preset files).
-3. Clone or attach this repository so `src/afyaflow` is available.
-4. Run all cells top-to-bottom.
+This notebook is **self-contained**. Link it from GitHub in Kaggle (notebook file only). You do **not** need to clone the full repository.
 
-The notebook loads the attached local preset with `Gemma4CausalLM.from_preset`, extracts structured stock reports through `GemmaClient`, then runs deterministic risk, approved tools, and bilingual handoff.
+### Required Kaggle settings
+
+1. Accelerator: **GPU**
+2. Add Input: **Keras Gemma 4** model (`gemma4` / V2)
+3. Internet: On (only for `pip install keras-hub`)
+4. Run All
+
+### What it does
+
+- Embeds AfyaFlow schemas, risk engine, transfer ranking, and handoff logic
+- Loads your attached Gemma 4 preset from `/kaggle/input`
+- Extracts structured stock reports with Gemma
+- Computes deterministic risk + transfer recommendation + Swahili handoff
